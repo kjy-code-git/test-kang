@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue-resource.min.js"></script>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+	<body>
+		 <div id="sumApp">
+			 行： <span>{{ curNumH }}</span>
+		        <!--减按钮-->
+		        <button @click="min">-</button>     
+		        <!--显示数量-->
+		       
+		        <!-- 加按钮 -->
+		        <button @click="add">+</button><br />
+				<!-- <input type="text" v-model="curNumH"/> -->
+				列： <span>{{ curNumL }}</span>
+				   <!--减按钮-->
+				   <button @click="min1">-</button>   
+					 <!-- <input type="text" v-model="curNumL"/> -->
+				   <!--显示数量-->
+				  
+				   <!-- 加按钮 -->
+				   <button @click="add1">+</button>
+				   <h1>合计: {{curNumH+curNumL}}</h1> -->
+				    <table ref="table" ></table>
+		    </div>
+		    <script>
+		        var vu = new Vue({
+		            el: "#sumApp",  //挂载
+		            data:{
+		                curNumH: 0,
+						curNumL: 0
+		            },
+					watch: {
+					    // 检测行列变化，实现实时渲染
+					    curNumH(r){
+					        this.commitRowAndColumn();
+					    },
+					    curNumL(c){
+					        this.commitRowAndColumn();
+					    }
+					},
+		            methods:{
+		                // 添加函数
+		                add: function(){
+		                        this.curNumH += 1;
+		                },
+						add1: function(){
+						        this.curNumL += 1;
+						},
+		                //减数函数
+		                min: function(){
+		                        this.curNumH -= 1;
+		                },
+						min1: function(){
+						        this.curNumL -= 1;
+						},
+						commitRowAndColumn: function(){
+						    let curNumH = this.curNumH,
+						        curNumL = this.curNumL,
+						        table = this.$refs.table;
+									
+						    if(!curNumH) return;
+						    if(!curNumL) return;
+									
+						    // 当且仅当行列乘积小于5000时显示
+						    // 否则渲染速度会很慢，网页卡住
+						    if(curNumH*curNumL > 5000){
+						        alert("输入的数太大了,请重新输入");
+						        this.curNumH = 0;
+						        this.curNumL = 0;
+						        table.innerHTML = "";
+						        return;
+						    }
+									
+						    let cArr = "";
+						    for(let i=0;i<curNumL;i++){
+						        cArr += "<th>*</th>";
+						    }
+									
+						    let rArr = "" 
+						    for(let i=0;i<curNumH;i++){
+						        rArr += "<tr>" + cArr + "</tr>";
+						    }
+									
+						    table.innerHTML = rArr;
+						}
+						
+		            }
+		        });
+		    </script>
+	</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="div01" class="v-cloak">
+    <div>{{msg}}</div>
+   <!-- <div v-text='msg'></div>
+    <div v-html="msg1"></div>
+    <div v-once="info"></div>
+
+    <input type="text" v-model="msg1">-->
+    <!--v-model双向数据绑定-->
+
+    <div>
+        <!--v-on事件绑定,可用@代替-->
+        <button v-on:click='msg++'>点击</button>
+        <button @click="msg++">点击</button>
+        <button @click="handle2($event)">再点击</button>
+        <button @click="handle(2222)">点我点我</button>
+
+        <!--stop阻止冒泡，prevent阻止默认行为-->
+        <div v-on:click="handle">
+            <button v-on:click.stop="handle2">点点点</button>
+        </div>
+        <a href="http://www.baidu.com" v-on:click.prevent>百度一下</a>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="js/vue-resource.min.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script>
+    var vv=new Vue({
+        el:"#div01",
+        data:{
+         /* msg:'这是vue,111',
+          msg1:'<h1>这是第二个vue</h1>',
+          info:'info',*/
+            msg:0,
+        },
+        methods:{
+            handle:function (data) {
+                console.log(data),
+                this.msg++;
+            },
+            /*传参注意点：普通参数按顺序写，传的如果是对象则要写在最后*/
+            handle2:function (event) {
+              console.log(event.target.innerHTML)
+                /*阻止冒泡，冒泡就是当点击字标签中，父标签的函数也会被触发*/
+              event.stopPropagation()
+            }
+        }
+    });
+</script>
+</html>

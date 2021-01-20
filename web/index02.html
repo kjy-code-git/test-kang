@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript" src="js/vue-resource.min.js"></script>
+		<script type="text/javascript" src="js/vue.js"></script>
+	</head>
+	<body>
+		<div id="div01">
+			<form action="">
+				username:<input type="text" v-model="username" v-on:keyup.delete="handle">
+				password:<input type="password" v-model="password" v-on:keyup.enter="handleSubmit"/>
+				<input type="button" v-on:click="handleSubmit" value="提交"/>
+			</form>
+		</div>
+	</body>
+	<script>
+		var vt=new Vue({	
+			el:"#div01",
+			data:{
+				username:'',
+				password:''
+			},
+			methods:{
+				handleSubmit:function(){
+					console.log(this.username+this.password)
+				},
+				handle:function(){
+					alert("1111")
+					username=''
+				}
+			}
+		});
+	</script>
+</html>
